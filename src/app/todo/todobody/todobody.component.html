@@ -1,0 +1,6 @@
+<app-input-area ></app-input-area>
+<div [style.padding]="cardsInfo.padding+'px'">
+  <ng-container *ngFor='let todo of todos$ | async'>
+    <app-cards-area [data]= todo [cardsInfo]= cardsInfo ></app-cards-area>
+  </ng-container>
+</div>

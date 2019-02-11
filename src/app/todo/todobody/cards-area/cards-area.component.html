@@ -1,0 +1,11 @@
+  <div #card id={{id}} [style.background-color] = "cardBgColor" [style.margin]="cardsInfo.cardsMargin+'px'" [style.width]="cardsInfo.cardsWidth+'px'" class='card'>
+    <h1>{{title|slice:0:8}}</h1>
+    <p  (dblclick)='DoEdit()' *ngIf=!editStatus>{{content}}</p>
+    <input  [style.background-color] = "cardBgColor" (keydown.escape) = 'CancleEdit()' (keydown.enter)='DoEdit($event.target.value)' *ngIf= editStatus class='edit-box'>
+    <button #greenButton id='green' class='color-picker'></button>
+    <button #yellowButton  id='yellow' class='color-picker'></button>
+    <button #redButton  id='red' class='color-picker'></button>
+    <button class='complete-button' (click)='this.deleteTodo.next(data)'>{{buttonTitle|uppercase}}</button>
+  </div>
+
+
