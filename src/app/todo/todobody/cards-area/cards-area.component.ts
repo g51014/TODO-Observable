@@ -27,61 +27,34 @@ export class CardsAreaComponent implements OnInit, OnDestroy {
   private editTodo$ = this.editTodo.asObservable()
     .pipe(takeUntil(this.onDestroy$)).subscribe(editedTodo => this.$todo.editTodo(editedTodo));
 
+  protected pickTodoColor: Subject<any> = new Subject();
+  private pickTodoColor$ = this.pickTodoColor.asObservable().pipe(
+    takeUntil(this.onDestroy$)).subscribe(
+      info => this.$todo.pickTodoColor(info.todo, info.color)
+    );
   @Input() data;
   @Input() cardsInfo;
 
 
-  editStatus: boolean;
-  buttonTitle: string;
-  title: string;
-  id: number;
-  bgColor: any;
-  content: string;
-  cardBgColor: any;
-
-
-  // These are done correctly, but utilize the above observables instead
-  @ViewChild('redButton') redButton;
-  @ViewChild('greenButton') greenButton;
-  @ViewChild('yellowButton') yellowButton;
-
+  public editStatus: boolean;
+  public buttonTitle: string;
+  public title: string;
+  public id: number;
+  public bgColor: any;
+  public content: string;
+  public cardBgColor: any;
 
   constructor(private $todo: TodoService) { }
   ngOnDestroy() {
     this.onDestroy.next('');
   }
   ngOnInit() {
-    // this should be an object for expediency
-    // this.bgColors = {
-    //   red': 'rgb(245, 112, 112)',
-    //   green': 'rgb(174, 238, 195)',
-    //   yellow': 'rgb(245, 243, 112),
-    // };
-    this.bgColor = [
-    {'color': 'red',  'value': 'rgb(245, 112, 112)'},
-    {'color': 'green',  'value': 'rgb(174, 238, 195)'},
-    {'color': 'yellow',  'value': 'rgb(245, 243, 112)'}
-    ];
     this.buttonTitle = 'complete';
     this.editStatus = false;
     this.cardBgColor = this.data.bgColor;
     this.title = this.data.title;
     this.id = this.data.id;
     this.content = this.data.content;
-    const redEvent = fromEvent(this.redButton.nativeElement, 'click').pipe(map(e => this.redButton.nativeElement.id));
-    const greenEvent = fromEvent(this.greenButton.nativeElement, 'click').pipe(map(e => this.greenButton.nativeElement.id));
-    const yellowEvent = fromEvent(this.yellowButton.nativeElement, 'click').pipe(map(e => this.yellowButton.nativeElement.id));
-    const colorPickerEvent = redEvent.pipe(merge(yellowEvent, greenEvent)).subscribe(
-      // if that was an object, this could be done like this:
-      // clickedColor => this.$todo.editTodo({...this.data, cardBgColor:this.bgColor[clickedColor]})
-      (e) => {
-        for (let i = 0; i < this.bgColor.length; i++) {
-          if (e === this.bgColor[i].color) {
-            this.cardBgColor = this.bgColor[i].value;
-          }
-        }
-      }
-    );
   }
   DoEdit(content) {
     this.editStatus = !this.editStatus;
