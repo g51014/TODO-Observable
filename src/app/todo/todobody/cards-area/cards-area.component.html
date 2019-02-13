@@ -1,7 +1,7 @@
-  <div #card id={{id}} [style.background-color] = "cardBgColor" [style.margin]="cardsInfo.cardsMargin+'px'" [style.width]="cardsInfo.cardsWidth+'px'" class='card'>
-    <h1>{{title|slice:0:8}}</h1>
-    <p  (dblclick)='DoEdit()' *ngIf=!editStatus>{{content}}</p>
-    <input  [style.background-color] = "cardBgColor" (keydown.escape) = 'CancleEdit()' (keydown.enter)='DoEdit($event.target.value)' *ngIf= editStatus class='edit-box'>
+  <div #card id={{this.data.id}} [style.background-color] = "this.data.bgColor" [style.margin]="cardsInfo.cardsMargin+'px'" [style.width]="cardsInfo.cardsWidth+'px'" class='card'>
+    <h1>{{this.data.title|slice:0:8}}</h1>
+    <p  (dblclick)='DoEdit()' *ngIf=!editStatus>{{this.data.content}}</p>
+    <input  [style.background-color] = "this.data.bgColor" (keydown.escape) = 'CancleEdit()' (keydown.enter)='DoEdit($event.target.value)' *ngIf= editStatus class='edit-box'>
     <button (click) = 'this.pickTodoColor.next({"todo":data,"color":"green"})' id='green' class='color-picker'></button>
     <button (click) = 'this.pickTodoColor.next({"todo":data,"color":"yellow"})'  id='yellow' class='color-picker'></button>
     <button (click) = 'this.pickTodoColor.next({"todo":data,"color":"red"})'  id='red' class='color-picker'></button>

@@ -1,9 +1,13 @@
 <div id = "todo-header" style="text-align:center">
   <h1 class='title'>
-    {{title|uppercase}}
+    <ng-container *ngIf="textSetup$ | async as textSetup">
+      {{textSetup.index.title | uppercase}}
+    </ng-container>
   </h1>
   <h2 class='subtitle'>
-    {{subtitle}}
+    <ng-container *ngIf="textSetup$ | async as textSetup">
+      {{textSetup.index.subtitle}}
+    </ng-container>
   </h2>
-  <button (click)='DoEnter()' class='enter-button'>ENTER</button>
+  <button #enterButton (click)='this.enter.next(false)' class='enter-button'>ENTER</button>
 </div>

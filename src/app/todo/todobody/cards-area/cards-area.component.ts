@@ -34,16 +34,8 @@ export class CardsAreaComponent implements OnInit, OnDestroy {
     );
   @Input() data;
   @Input() cardsInfo;
-
-
   public editStatus: boolean;
   public buttonTitle: string;
-  public title: string;
-  public id: number;
-  public bgColor: any;
-  public content: string;
-  public cardBgColor: any;
-
   constructor(private $todo: TodoService) { }
   ngOnDestroy() {
     this.onDestroy.next('');
@@ -51,10 +43,6 @@ export class CardsAreaComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buttonTitle = 'complete';
     this.editStatus = false;
-    this.cardBgColor = this.data.bgColor;
-    this.title = this.data.title;
-    this.id = this.data.id;
-    this.content = this.data.content;
   }
   DoEdit(content) {
     this.editStatus = !this.editStatus;

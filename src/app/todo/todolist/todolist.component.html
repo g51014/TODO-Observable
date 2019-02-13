@@ -1,2 +1,2 @@
-<app-todo-header (enter)='DoEnter($event)' *ngIf='display'></app-todo-header>
-<app-todobody   *ngIf='!display'></app-todobody>
+<app-todo-header *ngIf='this.display$ | async'></app-todo-header>
+<app-todobody   *ngIf='!(this.display$ | async)'></app-todobody>
